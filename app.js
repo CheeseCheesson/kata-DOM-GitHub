@@ -98,6 +98,7 @@ const addItemRepo = function (event) {
     const selectedData = getData(selectedItem, searchResult);
     createElemRepo(selectedData);
   }
+    cardContainer.addEventListener("click", removeList);
 };
 
 const removeList = function (event) {
@@ -107,11 +108,17 @@ const removeList = function (event) {
   ) {
     let targetList = event.target.closest(".card__item");
     targetList.remove();
+    console.log(targetList);
+
+    if(!document.querySelector(".card__item")){
+      console.log("remove");
+      cardContainer.removeEventListener("click", removeList);
+    }
   }
 };
 wrapper.addEventListener('click', ()=>{
   searchValue.innerHTML = "";
 })
-cardContainer.addEventListener("click", removeList);
+
 searchValue.addEventListener("click", addItemRepo);
-search.addEventListener("keydown", debounce(searchQueryRepo, 200));
+search.addEventListener("keydown", debounce(searchQueryRepo, 400));
